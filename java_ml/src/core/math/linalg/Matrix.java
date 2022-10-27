@@ -241,6 +241,20 @@ public class Matrix implements Serializable {
         }
     }
 
+    public Matrix substract(Matrix m) {
+        if (!sameSize(m)) {
+            throw new SizeMismatchException(this.getSize(), m.getSize(), "subtraction");
+        } else {
+            Matrix result = new Matrix(this.rows, this.cols);
+            for (int i = 0; i < this.rows; i++) {
+                for (int j = 0; j < this.cols; j++) {
+                    result.data[i][j] = this.data[i][j] - m.data[i][j];
+                }
+            }
+            return result;
+        }
+    }
+
     public Matrix scale(double lambda) {
         Matrix result = new Matrix(this.rows, this.cols);
         for (int i = 0; i < this.rows; i++) {
@@ -295,6 +309,14 @@ public class Matrix implements Serializable {
         };
 
         return it;
+    }
+
+    public double unitMatrixAsDouble() {
+        if (rows == 1 && cols == 1) {
+            return data[0][0];
+        } else {
+            throw new IllegalArgumentException("Matrix is not a unit matrix");
+        }
     }
 
 }
