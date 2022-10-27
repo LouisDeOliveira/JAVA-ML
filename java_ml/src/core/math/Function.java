@@ -7,6 +7,12 @@ public abstract class Function {
 
     public abstract double df(double x);
 
+    /**
+     * Applies the function to each element of the matrix.
+     * 
+     * @param x the matrix to apply the function to
+     * @return the resulting matrix
+     */
     public Matrix f(Matrix x) {
         Matrix y = new Matrix(x.getRows(), x.getCols());
         for (int i = 0; i < x.getRows(); i++) {
@@ -17,6 +23,12 @@ public abstract class Function {
         return y;
     }
 
+    /**
+     * Applies the derivative of the function to each element of the matrix.
+     * 
+     * @param x the matrix to apply the derivative of the function to
+     * @return the resulting matrix
+     */
     public Matrix df(Matrix x) {
         Matrix y = new Matrix(x.getRows(), x.getCols());
         for (int i = 0; i < x.getRows(); i++) {
