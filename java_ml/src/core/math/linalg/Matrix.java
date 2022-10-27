@@ -26,6 +26,20 @@ public class Matrix implements Serializable {
         return zeros(size[0], size[1]);
     }
 
+    public static Matrix ones(int rows, int cols) {
+        Matrix m = new Matrix(rows, cols);
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                m.data[i][j] = 1d;
+            }
+        }
+        return m;
+    }
+
+    public static Matrix ones(int[] size) {
+        return ones(size[0], size[1]);
+    }
+
     public static Matrix identity(int size) {
 
         Matrix m = new Matrix(size, size);
