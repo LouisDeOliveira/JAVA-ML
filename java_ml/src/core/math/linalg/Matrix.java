@@ -162,7 +162,12 @@ public class Matrix implements Serializable {
     }
 
     public Matrix copy() {
-        Matrix m = new Matrix(data);
+        Matrix m = like(this);
+
+        for (int i = 0; i < rows; i++) {
+            m.data[i] = data[i].clone();
+        }
+
         return m;
     }
 
