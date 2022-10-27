@@ -117,6 +117,10 @@ public class Matrix implements Serializable {
         return size;
     }
 
+    public double[][] getData() {
+        return data;
+    }
+
     /**
      * Trasposes this matrix in place.
      *
