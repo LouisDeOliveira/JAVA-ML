@@ -1,7 +1,6 @@
 package core.math.linalg;
 
 import java.io.Serializable;
-import java.util.Iterator;
 
 /**
  * A class for representing a matrix of doubles. Can be used for
@@ -40,14 +39,6 @@ public class Matrix implements Serializable {
             }
         }
         return m;
-    }
-
-    public static void main(String[] args) {
-        Matrix m = new Matrix(new double[][] { { 1, 2, 3 }, { 4, 5, 6 } });
-        System.out.println(m);
-        Matrix vec = m.getRow(0).transposed();
-        System.out.println(vec.dot(m));
-
     }
 
     private double[][] data;
@@ -273,42 +264,6 @@ public class Matrix implements Serializable {
             }
         }
         return result;
-    }
-
-    public Iterator<Matrix> rowIterator() {
-        Iterator<Matrix> it = new Iterator<Matrix>() {
-            int i = 0;
-
-            @Override
-            public boolean hasNext() {
-                return i < rows;
-            }
-
-            @Override
-            public Matrix next() {
-                return getRow(i++);
-            }
-        };
-
-        return it;
-    }
-
-    public Iterator<Matrix> colIterator() {
-        Iterator<Matrix> it = new Iterator<Matrix>() {
-            int i = 0;
-
-            @Override
-            public boolean hasNext() {
-                return i < cols;
-            }
-
-            @Override
-            public Matrix next() {
-                return getCol(i++);
-            }
-        };
-
-        return it;
     }
 
     public double unitMatrixAsDouble() {
