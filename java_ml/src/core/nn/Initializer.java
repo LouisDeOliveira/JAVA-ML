@@ -2,8 +2,6 @@ package core.nn;
 
 import java.util.Random;
 
-import core.math.linalg.Matrix;
-
 public abstract class Initializer {
     public static final Initializer NormalInitializer(double mean, double std) {
         return new Initializer() {
