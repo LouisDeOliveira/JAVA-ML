@@ -162,7 +162,7 @@ public class Matrix implements Serializable {
 
     public Matrix dot(Matrix m) {
         if (!compatible(m)) {
-            throw new SizeMismatchException(this.getSize(), m.getSize());
+            throw new SizeMismatchException(this.getSize(), m.getSize(), "product");
         } else {
             Matrix result = new Matrix(this.rows, m.getCols());
             for (int i = 0; i < this.rows; i++) {
@@ -228,7 +228,7 @@ public class Matrix implements Serializable {
 
     public Matrix add(Matrix m) {
         if (!sameSize(m)) {
-            throw new SizeMismatchException(this.getSize(), m.getSize());
+            throw new SizeMismatchException(this.getSize(), m.getSize(), "addition");
         } else {
             Matrix result = new Matrix(this.rows, this.cols);
             for (int i = 0; i < this.rows; i++) {
@@ -245,6 +245,16 @@ public class Matrix implements Serializable {
         for (int i = 0; i < this.rows; i++) {
             for (int j = 0; j < this.cols; j++) {
                 result.data[i][j] = this.data[i][j] * lambda;
+            }
+        }
+        return result;
+    }
+
+    public Matrix slice(int[] rows, int[] cols) {
+        Matrix result = new Matrix(rows[1] - rows[0], cols[1] - cols[0]);
+        for (int i = rows[0]; i < rows[1]; i++) {
+            for (int j = cols[0]; j < cols[1]; j++) {
+                result.data[i - rows[0]][j - cols[0]] = this.data[i][j];
             }
         }
         return result;
