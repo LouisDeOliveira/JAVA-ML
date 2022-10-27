@@ -9,7 +9,13 @@ public class SizeMismatchException extends IllegalArgumentException {
         super(message);
     }
 
+    public SizeMismatchException(int[] size1, int[] size2, String op) {
+        super("Size mismatch for operation: " + op + " " + size1[0] + " x " + size1[1] + " and " + size2[0] + " x "
+                + size2[1]);
+    }
+
     public SizeMismatchException(int[] size1, int[] size2) {
-        super("Size mismatch: " + size1[0] + " x " + size1[1] + " and " + size2[0] + " x " + size2[1]);
+        super("Size mismatch : " + size1[0] + " x " + size1[1] + " and " + size2[0] + " x "
+                + size2[1]);
     }
 }
