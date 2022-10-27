@@ -68,4 +68,17 @@ public abstract class Activation extends Function {
 
         return LeakyReLU;
     }
+
+    public static final Activation SELU = new Activation() {
+        @Override
+        public double f(double x) {
+            return x > 0 ? 1.0507 * x : 1.0507 * 1.67326 * Math.exp(x) - 1.0507 * 1.67326;
+        }
+
+        @Override
+        public double df(double x) {
+            return x > 0 ? 1.0507 : 1.0507 * 1.67326 * Math.exp(x);
+        }
+    };
+
 }
