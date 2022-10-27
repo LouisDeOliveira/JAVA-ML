@@ -218,8 +218,36 @@ public class Matrix implements Serializable {
      *
      * 
      */
-    private boolean compatible(Matrix m) {
+    public boolean compatible(Matrix m) {
         return this.cols == m.getRows();
+    }
+
+    public boolean sameSize(Matrix m) {
+        return this.rows == m.getRows() && this.cols == m.getCols();
+    }
+
+    public Matrix add(Matrix m) {
+        if (!sameSize(m)) {
+            throw new SizeMismatchException(this.getSize(), m.getSize());
+        } else {
+            Matrix result = new Matrix(this.rows, this.cols);
+            for (int i = 0; i < this.rows; i++) {
+                for (int j = 0; j < this.cols; j++) {
+                    result.data[i][j] = this.data[i][j] + m.data[i][j];
+                }
+            }
+            return result;
+        }
+    }
+
+    public Matrix scale(double lambda) {
+        Matrix result = new Matrix(this.rows, this.cols);
+        for (int i = 0; i < this.rows; i++) {
+            for (int j = 0; j < this.cols; j++) {
+                result.data[i][j] = this.data[i][j] * lambda;
+            }
+        }
+        return result;
     }
 
 }
