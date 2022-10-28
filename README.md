@@ -1,2 +1,20 @@
 # JAVA-ML
-Implementing a small ML and DL library in java
+Implementing a small ML and DL library in pure java.
+
+# Implemented now:
+- Matrix data structure
+- Element-wise activations
+- MSE loss
+- Simple SGD and Backpropagation algorithm
+- Sequential DNN models
+- Gaussian weight initializer
+
+# To Do:
+- Data loading and batching into matrices (example with MNIST)
+- Clean training loop
+- Other activations that are not element-wise (i.e softmax)
+- Other losses (i.e crossentropy)
+- Refactor activations using Java functional interface
+
+# Resources
+Deep Learning, Ian Goodfellow and Yoshua Bengio and Aaron Courville, https://www.deeplearningbook.org/
