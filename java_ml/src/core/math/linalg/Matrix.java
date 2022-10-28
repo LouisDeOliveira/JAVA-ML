@@ -265,6 +265,20 @@ public class Matrix implements Serializable {
         }
     }
 
+    public Matrix elementWiseProduct(Matrix m) {
+        if (!sameSize(m)) {
+            throw new SizeMismatchException(this.getSize(), m.getSize(), "element-wise product");
+        } else {
+            Matrix result = new Matrix(this.rows, this.cols);
+            for (int i = 0; i < this.rows; i++) {
+                for (int j = 0; j < this.cols; j++) {
+                    result.data[i][j] = this.data[i][j] * m.data[i][j];
+                }
+            }
+            return result;
+        }
+    }
+
     public Matrix scale(double lambda) {
         Matrix result = new Matrix(this.rows, this.cols);
         for (int i = 0; i < this.rows; i++) {
