@@ -32,13 +32,12 @@ public class Sequential extends Model {
         return output;
     }
 
-    public static void main(String[] args) {
-        Sequential model = new Sequential();
-        model.add(new DenseLayer(2, 3, Activation.ReLU));
-        model.add(new DenseLayer(3, 1, Activation.Sigmoid));
-        Matrix input = new Matrix(new double[][] { { 1 }, { 3 } });
-        Matrix output = model.forward(input);
-        System.out.println(output);
+    public ArrayList<Layer> getLayers() {
+        return layers;
+    }
+
+    public void setLayer(int index, Layer layer) {
+        this.layers.set(index, layer);
     }
 
 }
