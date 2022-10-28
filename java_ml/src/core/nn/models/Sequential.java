@@ -3,8 +3,6 @@ package core.nn.models;
 import java.util.ArrayList;
 
 import core.math.linalg.Matrix;
-import core.nn.Activation;
-import core.nn.layers.DenseLayer;
 import core.nn.layers.Layer;
 
 public class Sequential extends Model {
@@ -34,10 +32,6 @@ public class Sequential extends Model {
 
     public ArrayList<Layer> getLayers() {
         return layers;
-    }
-
-    public void setLayer(int index, Layer layer) {
-        this.layers.set(index, layer);
     }
 
 }

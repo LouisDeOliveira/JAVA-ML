@@ -47,15 +47,13 @@ public class SGD {
     public static void main(String[] args) {
         Sequential model = new Sequential();
         model.add(new DenseLayer(2, 16, Activation.ReLU));
-        model.add(new DenseLayer(16, 8, Activation.ReLU));
-        model.add(new DenseLayer(8, 16, Activation.ReLU));
-        model.add(new DenseLayer(16, 2, Activation.TanH));
-        Matrix input = new Matrix(new double[][] { { 1d }, { -1d } });
+        model.add(new DenseLayer(16, 2, Activation.Sigmoid));
+        Matrix input = new Matrix(new double[][] { { 1d }, { 1d } });
         Matrix output = model.forward(input);
         System.out.println("output = \n" + output);
-        SGD sgd = new SGD(model, 0.001, Loss.MSE);
+        SGD sgd = new SGD(model, 0.1, Loss.MSE);
         for (int i = 0; i < 10000; i++) {
-            sgd.step(input, new Matrix(new double[][] { { 1d }, { -1d } }), output);
+            sgd.step(input, new Matrix(new double[][] { { 0.01 }, { 0.99d } }), output);
             output = model.forward(input);
             System.out.println(output);
         }

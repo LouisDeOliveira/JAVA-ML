@@ -10,5 +10,4 @@ public abstract class Model {
 
     public abstract ArrayList<Layer> getLayers();
 
-    public abstract void setLayer(int index, Layer layer);
 }
