@@ -11,16 +11,27 @@ public class SGD {
     double learning_rate;
     Model model;
     Loss loss;
+    boolean verbose;
 
     public SGD(Model model, double learning_rate, Loss loss) {
         this.model = model;
         this.learning_rate = learning_rate;
         this.loss = loss;
+        this.verbose = false;
+    }
+
+    public SGD(Model model, double learning_rate, Loss loss, boolean verbose) {
+        this.model = model;
+        this.learning_rate = learning_rate;
+        this.loss = loss;
+        this.verbose = verbose;
     }
 
     public void step(Matrix input, Matrix y_true, Matrix y_pred) {
         double lossValue = this.loss.f(y_true, y_pred);
-        System.out.println("loss = " + lossValue);
+        if (this.verbose) {
+            System.out.println("Loss: " + lossValue);
+        }
         Matrix grad = loss.df(y_true, y_pred);
         for (int i = model.getLayers().size() - 1; i >= 0; i--) {
             Layer layer = model.getLayers().get(i);
@@ -46,14 +57,13 @@ public class SGD {
 
     public static void main(String[] args) {
         Sequential model = new Sequential();
-        model.add(new DenseLayer(2, 16, Activation.ReLU));
-        model.add(new DenseLayer(16, 2, Activation.Sigmoid));
+        model.add(new DenseLayer(2, 4, Activation.ReLU));
+        model.add(new DenseLayer(4, 2, Activation.Sigmoid));
         Matrix input = new Matrix(new double[][] { { 1d }, { 1d } });
         Matrix output = model.forward(input);
-        System.out.println("output = \n" + output);
         SGD sgd = new SGD(model, 0.1, Loss.MSE);
         for (int i = 0; i < 10000; i++) {
-            sgd.step(input, new Matrix(new double[][] { { 0.01 }, { 0.99d } }), output);
+            sgd.step(input, new Matrix(new double[][] { { 0.1901 }, { 0.2000 } }), output);
             output = model.forward(input);
             System.out.println(output);
         }
