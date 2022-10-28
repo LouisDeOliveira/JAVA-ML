@@ -1,5 +1,5 @@
 # JAVA-ML
-Implementing a small ML and DL library in pure java.
+Implementing a small ML and DL library in pure java from scratch.
 
 # Implemented now:
 - Matrix data structure
