@@ -15,6 +15,7 @@ Implementing a small ML and DL library in pure java.
 - Other activations that are not element-wise (i.e softmax)
 - Other losses (i.e crossentropy)
 - Refactor activations using Java functional interface
+- Implement other non-DL ML techniques: KNN, PCA, SVM's, etc..
 
 # Resources
 Deep Learning, Ian Goodfellow and Yoshua Bengio and Aaron Courville, https://www.deeplearningbook.org/
