@@ -1,9 +1,15 @@
 package core.nn.models;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 
 import core.math.linalg.Matrix;
+import core.nn.Activation;
+import core.nn.layers.DenseLayer;
 import core.nn.layers.Layer;
 
 public class Sequential extends Model implements Serializable {
@@ -43,5 +49,47 @@ public class Sequential extends Model implements Serializable {
         }
 
         return output;
+    }
+
+    public void saveModel(String path) {
+        try {
+            FileOutputStream fileOut = new FileOutputStream(path);
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(this);
+            out.close();
+            fileOut.close();
+            System.out.printf("Serialized Sequential model is saved in " + path + "\n");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static Sequential loadModel(String path) {
+        try {
+            FileInputStream fileIn = new FileInputStream(path);
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+
+            Sequential model = (Sequential) in.readObject();
+
+            in.close();
+            fileIn.close();
+
+            System.out.println("Deserialized Sequential model from " + path + "\n");
+            return model;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error loading model from " + path);
+            return new Sequential();
+        }
+    }
+
+    public static void main(String[] args) {
+        Sequential model = new Sequential();
+        model.add(new DenseLayer(2, 3, Activation.Sigmoid));
+        System.out.println(model);
+        model.saveModel("model.model");
+        Sequential model2 = Sequential.loadModel("model.model");
+        System.out.println(model2);
     }
 }

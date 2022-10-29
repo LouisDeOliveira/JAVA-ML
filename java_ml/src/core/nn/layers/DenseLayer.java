@@ -50,7 +50,7 @@ public class DenseLayer extends Layer implements Serializable {
 
     @Override
     public String toString() {
-        return "biases= \n" + biases + ",\n weights= \n" + weights;
+        return "biases= \n" + biases + "\n weights= \n" + weights;
     }
 
 }
