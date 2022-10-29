@@ -9,7 +9,7 @@ Implementing a small ML and DL library in pure java from scratch.
 - Sequential DNN models
 - Gaussian and Uniform weight initializer
 - Saving and loading sequential models
-- Train and Test loop on MNIST, 2 models to load (0.754 and .... accuracy respectively)
+- Train and Test loop on MNIST, 1 model to load (0.754 accuracy)
 
 # To Do:
 - Batching
