@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import core.math.linalg.Matrix;
 import core.nn.Activation;
+import core.nn.Initializer;
 import core.nn.Loss;
 import core.nn.models.Model;
 import core.nn.models.Sequential;
@@ -69,7 +70,7 @@ public class SGD {
         for (int i = model.getLayers().size() - 1; i >= 1; i--) {
             Layer layer = model.getLayers().get(i);
             Activation activation = layer.getActivation();
-            Matrix activation_grad = grad.elementWiseProduct(activation.df(activations.get(i - 1)));
+            Matrix activation_grad = grad.elementWiseProduct(activation.df(activations.get(i + 1)));
             gradients.add(activation_grad);
             grad = layer.getWeights().dot(activation_grad);
         }
@@ -92,12 +93,14 @@ public class SGD {
 
     public static void main(String[] args) {
         Sequential model = new Sequential();
-        model.add(new DenseLayer(2, 6, Activation.ReLU));
-        model.add(new DenseLayer(6, 2, Activation.ReLU));
+        model.add(new DenseLayer(2, 128, Activation.ReLU));
+        model.add(new DenseLayer(128, 64, Activation.ReLU));
+        model.add(new DenseLayer(64, 5, Activation.Sigmoid));
+        Matrix true_m = new Matrix(Initializer.UniformInitializer(0d, 1d).initialize(new int[] { 5, 1 }));
         Matrix input = new Matrix(new double[][] { { 1d }, { 1d } });
-        SGD sgd = new SGD(model, 0.01, Loss.MSE, true);
+        SGD sgd = new SGD(model, 0.001, Loss.MSE, true);
         for (int i = 0; i < 10000; i++) {
-            sgd.step(input, new Matrix(new double[][] { { 3.14159265 }, { 0.19012000 } }));
+            sgd.step(input, true_m);
         }
         System.out.println(model.forward(input));
     }
