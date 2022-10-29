@@ -18,6 +18,7 @@ Implementing a small ML and DL library in pure java from scratch.
 - Other losses (i.e crossentropy)
 - Learning rate scheduling
 - Refactor activations using Java functional interface
+- Train MNIST autoencoder
 - Implement other non-DL ML techniques: KNN, PCA, SVM's, etc..
 
 # Resources
