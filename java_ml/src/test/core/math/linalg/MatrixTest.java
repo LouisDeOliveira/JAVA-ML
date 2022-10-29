@@ -178,4 +178,33 @@ public class MatrixTest {
             }
         }
     }
+
+    @Test
+    public void testUnRaveled() {
+        Matrix mUnRaveled = m.unRaveled();
+        Assert.assertTrue(mUnRaveled
+                .equals(new Matrix(new double[][] { { 1 }, { 2 }, { 3 }, { 4 }, { 5 }, { 6 }, { 7 }, { 8 }, { 9 } })));
+    }
+
+    @Test
+    public void testUnravel() {
+        m.unRavel();
+        Assert.assertTrue(
+                m.equals(new Matrix(new double[][] { { 1 }, { 2 }, { 3 }, { 4 }, { 5 }, { 6 }, { 7 }, { 8 }, { 9 } })));
+    }
+
+    @Test
+    public void testReshaped() {
+        Matrix mReshaped = m.reshaped(1, 9);
+        Assert.assertTrue(
+                mReshaped.equals(new Matrix(new double[][] { { 1, 2, 3, 4, 5, 6, 7, 8, 9 } })));
+    }
+
+    @Test
+    public void testReshape() {
+        m.reshape(1, 9);
+        Assert.assertTrue(
+                m.equals(new Matrix(new double[][] { { 1, 2, 3, 4, 5, 6, 7, 8, 9 } })));
+    }
+
 }
