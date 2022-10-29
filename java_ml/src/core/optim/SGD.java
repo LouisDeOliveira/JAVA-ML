@@ -55,10 +55,6 @@ public class SGD {
         }
     }
 
-    public void update_weights() {
-
-    }
-
     public void backPropagation(Matrix input, Matrix y_true) {
         forwardPropagation(input);
         Matrix y_pred = activations.get(activations.size() - 1);
