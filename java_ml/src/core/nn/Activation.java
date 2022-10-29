@@ -17,6 +17,11 @@ public abstract class Activation implements Function, Serializable {
         public double df(double x) {
             return f(x) * (1 - f(x));
         }
+
+        @Override
+        public String toString() {
+            return "Sigmoid";
+        }
     };
 
     public static final Activation TanH = new Activation() {
@@ -28,6 +33,11 @@ public abstract class Activation implements Function, Serializable {
         @Override
         public double df(double x) {
             return 1 - Math.pow(f(x), 2);
+        }
+
+        @Override
+        public String toString() {
+            return "TanH";
         }
     };
 
@@ -41,6 +51,11 @@ public abstract class Activation implements Function, Serializable {
         public double df(double x) {
             return x > 0 ? 1 : 0;
         }
+
+        @Override
+        public String toString() {
+            return "ReLU";
+        }
     };
 
     public static final Activation LeakyReLU = new Activation() {
@@ -52,6 +67,11 @@ public abstract class Activation implements Function, Serializable {
         @Override
         public double df(double x) {
             return x > 0 ? 1 : 0.01;
+        }
+
+        @Override
+        public String toString() {
+            return "LeakyReLU: 0.01";
         }
     };
 
@@ -67,6 +87,11 @@ public abstract class Activation implements Function, Serializable {
             public double df(double x) {
                 return x > 0 ? 1 : alpha;
             }
+
+            @Override
+            public String toString() {
+                return "LeakyReLU: " + alpha;
+            }
         };
 
         return LeakyReLU;
@@ -81,6 +106,11 @@ public abstract class Activation implements Function, Serializable {
         @Override
         public double df(double x) {
             return x > 0 ? 1.0507 : 1.0507 * 1.67326 * Math.exp(x);
+        }
+
+        @Override
+        public String toString() {
+            return "SELU";
         }
     };
 

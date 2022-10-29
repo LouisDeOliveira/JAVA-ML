@@ -9,6 +9,8 @@ public class DenseLayer extends Layer implements Serializable {
     private Matrix weights;
     private Matrix biases;
     private Activation activation;
+    private int inputSize;
+    private int outputSize;
 
     public DenseLayer(int inputSize, int outputSize, Activation activationFunction) {
         ;
@@ -19,6 +21,8 @@ public class DenseLayer extends Layer implements Serializable {
         this.biases = new Matrix(
                 Initializer.NormalInitializer(0, 1)
                         .initialize(new int[] { outputSize, 1 }));
+        this.inputSize = inputSize;
+        this.outputSize = outputSize;
     }
 
     @Override
@@ -50,7 +54,7 @@ public class DenseLayer extends Layer implements Serializable {
 
     @Override
     public String toString() {
-        return "biases= \n" + biases + "\n weights= \n" + weights;
+        return "Dense Layer: " + inputSize + " -> " + outputSize + " " + activation.toString();
     }
 
 }
