@@ -16,6 +16,7 @@ Implementing a small ML and DL library in pure java from scratch.
 - Batched SGD
 - Other activations that are not element-wise (i.e softmax)
 - Other losses (i.e crossentropy)
+- Learning rate scheduling
 - Refactor activations using Java functional interface
 - Implement other non-DL ML techniques: KNN, PCA, SVM's, etc..
 
