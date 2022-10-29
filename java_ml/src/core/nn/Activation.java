@@ -3,7 +3,7 @@ package core.nn;
 import core.math.Function;
 import core.math.linalg.Matrix;
 
-public abstract class Activation extends Function {
+public abstract class Activation implements Function {
 
     public static final Activation Sigmoid = new Activation() {
         @Override
