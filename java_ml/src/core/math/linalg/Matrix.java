@@ -55,6 +55,12 @@ public class Matrix implements Serializable {
         return m;
     }
 
+    public static void main(String[] args) {
+        Matrix m = new Matrix(new double[][] { { 1, 2, 3 }, { 4, 5, 6 } });
+        m.reshape(3, 2);
+        System.out.println(m);
+    }
+
     private double[][] data;
 
     private int rows;
@@ -159,6 +165,73 @@ public class Matrix implements Serializable {
             }
         }
         return m;
+    }
+
+    public Matrix unRaveled() {
+        // Unravels a matrix into a vector
+        Matrix m = new Matrix(rows * cols, 1);
+        int k = 0;
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                m.data[k++][0] = data[i][j];
+            }
+        }
+        return m;
+    }
+
+    public void unRavel() {
+        double[][] newData = new double[rows * cols][1];
+        int k = 0;
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                newData[k++][0] = data[i][j];
+            }
+        }
+        this.rows = rows * cols;
+        this.cols = 1;
+        this.data = newData;
+
+    }
+
+    public Matrix reshaped(int rows, int cols) {
+        if (rows * cols != this.rows * this.cols) {
+            throw new IllegalArgumentException("Cannot reshape matrix to given dimensions.");
+        }
+        Matrix m = unRaveled();
+        Matrix reshaped = new Matrix(rows, cols);
+
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                reshaped.data[i][j] = m.data[i * cols + j][0];
+            }
+        }
+
+        return reshaped;
+    }
+
+    /**
+     * Reshapes in place
+     * 
+     * @param rows
+     * @param cols
+     */
+    public void reshape(int rows, int cols) {
+        if (rows * cols != this.rows * this.cols) {
+            throw new IllegalArgumentException("Cannot reshape matrix to given dimensions.");
+        }
+
+        Matrix m = unRaveled();
+        double[][] newData = new double[rows][cols];
+
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                newData[i][j] = m.data[i * cols + j][0];
+            }
+        }
+
+        this.rows = rows;
+        this.cols = cols;
+        this.data = newData;
     }
 
     public Matrix copy() {
@@ -306,5 +379,4 @@ public class Matrix implements Serializable {
             throw new IllegalArgumentException("Matrix is not a unit matrix");
         }
     }
-
 }
