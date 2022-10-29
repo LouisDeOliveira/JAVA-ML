@@ -34,4 +34,13 @@ public class Sequential extends Model {
         return layers;
     }
 
+    @Override
+    public String toString() {
+        String output = "Sequential Model: \n";
+        for (Layer layer : layers) {
+            output += layer.toString() + "\n";
+        }
+
+        return output;
+    }
 }

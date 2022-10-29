@@ -10,10 +10,6 @@ public abstract class Layer {
 
     public abstract Matrix forward(Matrix input);
 
-    public abstract void backward(Matrix biasGradient, Matrix weightGradient);
-
-    public abstract Matrix getActivationValues();
-
     public abstract Activation getActivation();
 
     public abstract Matrix getWeights();

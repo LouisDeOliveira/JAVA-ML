@@ -1,5 +1,7 @@
 package core.optim;
 
+import java.util.ArrayList;
+
 import core.math.linalg.Matrix;
 import core.nn.Activation;
 import core.nn.Loss;
@@ -8,16 +10,22 @@ import core.nn.models.Sequential;
 import core.nn.layers.*;
 
 public class SGD {
-    double learning_rate;
-    Model model;
-    Loss loss;
-    boolean verbose;
+    private double learning_rate;
+    private Model model;
+    private Loss loss;
+    private boolean verbose;
+    private ArrayList<Matrix> outputs;
+    private ArrayList<Matrix> activations;
+    private ArrayList<Matrix> gradients;
 
     public SGD(Model model, double learning_rate, Loss loss) {
         this.model = model;
         this.learning_rate = learning_rate;
         this.loss = loss;
         this.verbose = false;
+        this.outputs = new ArrayList<Matrix>();
+        this.activations = new ArrayList<Matrix>();
+        this.gradients = new ArrayList<Matrix>();
     }
 
     public SGD(Model model, double learning_rate, Loss loss, boolean verbose) {
@@ -25,33 +33,61 @@ public class SGD {
         this.learning_rate = learning_rate;
         this.loss = loss;
         this.verbose = verbose;
+        this.outputs = new ArrayList<Matrix>();
+        this.activations = new ArrayList<Matrix>();
+        this.gradients = new ArrayList<Matrix>();
     }
 
-    public void step(Matrix input, Matrix y_true, Matrix y_pred) {
+    public void forward_propagation(Matrix input) {
+        outputs = new ArrayList<Matrix>();
+        activations = new ArrayList<Matrix>();
+
+        outputs.add(input);
+        activations.add(input);
+
+        for (int i = 0; i < model.getLayers().size(); i++) {
+            Layer layer = model.getLayers().get(i);
+            Matrix output = layer.getWeights().transposed().dot(activations.get(i));
+            output.add(layer.getBiases());
+            outputs.add(output);
+            activations.add(layer.getActivation().f(output));
+        }
+    }
+
+    public void update_weights() {
+
+    }
+
+    public void backpropagation(Matrix input, Matrix y_true) {
+        forward_propagation(input);
+        Matrix y_pred = activations.get(activations.size() - 1);
+        System.out.println("model out: \n" + (model.forward(input)));
         double lossValue = this.loss.f(y_true, y_pred);
         if (this.verbose) {
             System.out.println("Loss: " + lossValue);
         }
         Matrix grad = loss.df(y_true, y_pred);
-        for (int i = model.getLayers().size() - 1; i >= 0; i--) {
+        for (int i = model.getLayers().size() - 1; i >= 1; i--) {
             Layer layer = model.getLayers().get(i);
-            Layer previousLayer = i > 0 ? model.getLayers().get(i - 1) : null;
-            Matrix activation = layer.getActivationValues();
-            grad = grad.elementWiseProduct(layer.getActivation().df(activation));
+            Activation activation = layer.getActivation();
+            Matrix activation_grad = grad.elementWiseProduct(activation.df(activations.get(i - 1)));
+            gradients.add(activation_grad);
+            grad = layer.getWeights().dot(activation_grad);
+        }
+    }
 
-            Matrix previousActivationValueT = previousLayer != null
-                    ? previousLayer.getActivation().f(previousLayer.getActivationValues()).transposed()
-                    : input.transposed();
-
-            Matrix biasGradient = grad;
-            Matrix weightGradient = grad
-                    .dot(previousActivationValueT);
-
-            layer.setWeights(layer.getWeights().substract(weightGradient.scale(learning_rate).transposed()));
-            layer.setBiases(layer.getBiases().substract(biasGradient.scale(learning_rate)));
-
-            grad = layer.getWeights().dot(grad);
-
+    public void step(Matrix input, Matrix y_true) {
+        backpropagation(input, y_true);
+        for (int i = 1; i < model.getLayers().size(); i++) {
+            Layer layer = model.getLayers().get(i);
+            Matrix grad = gradients.get(gradients.size() - i);
+            Matrix weights = layer.getWeights();
+            Matrix new_weights = weights
+                    .substract(grad.dot(outputs.get(i).transposed()).scale(learning_rate).transposed());
+            layer.setWeights(new_weights);
+            Matrix biases = layer.getBiases();
+            Matrix new_biases = biases.substract(grad.scale(learning_rate));
+            layer.setBiases(new_biases);
         }
     }
 
@@ -60,13 +96,9 @@ public class SGD {
         model.add(new DenseLayer(2, 4, Activation.ReLU));
         model.add(new DenseLayer(4, 2, Activation.Sigmoid));
         Matrix input = new Matrix(new double[][] { { 1d }, { 1d } });
-        Matrix output = model.forward(input);
-        SGD sgd = new SGD(model, 0.1, Loss.MSE);
+        SGD sgd = new SGD(model, 0.01, Loss.MSE, true);
         for (int i = 0; i < 10000; i++) {
-            sgd.step(input, new Matrix(new double[][] { { 0.1901 }, { 0.2000 } }), output);
-            output = model.forward(input);
-            System.out.println(output);
+            sgd.step(input, new Matrix(new double[][] { { 0.999 }, { 0.999 } }));
         }
-
     }
 }

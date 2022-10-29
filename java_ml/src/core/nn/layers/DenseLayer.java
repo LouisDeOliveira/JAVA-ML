@@ -6,14 +6,10 @@ import core.nn.*;
 public class DenseLayer extends Layer {
     private Matrix weights;
     private Matrix biases;
-    private int inputSize;
-    private int outputSize;
     private Activation activation;
-    private Matrix activationOutput;
 
     public DenseLayer(int inputSize, int outputSize, Activation activationFunction) {
-        this.inputSize = inputSize;
-        this.outputSize = outputSize;
+        ;
         this.activation = activationFunction;
         this.weights = new Matrix(
                 Initializer.NormalInitializer(0, 1)
@@ -27,22 +23,11 @@ public class DenseLayer extends Layer {
     public Matrix forward(Matrix input) {
         Matrix output = weights.transposed().dot(input);
         output.add(biases);
-        activationOutput = output;
-
         return activation.f(output);
-    }
-
-    public Matrix getActivationValues() {
-        return activationOutput;
     }
 
     public Activation getActivation() {
         return activation;
-    }
-
-    public void backward(Matrix biasGradient, Matrix weightGradient) {
-        this.weights.add(weightGradient.transposed());
-        this.biases.add(biasGradient);
     }
 
     public Matrix getWeights() {
@@ -59,6 +44,11 @@ public class DenseLayer extends Layer {
 
     public void setBiases(Matrix biases) {
         this.biases = biases;
+    }
+
+    @Override
+    public String toString() {
+        return "biases= \n" + biases + ",\n weights= \n" + weights;
     }
 
 }
