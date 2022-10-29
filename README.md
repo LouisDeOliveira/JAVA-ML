@@ -11,6 +11,7 @@ Implementing a small ML and DL library in pure java from scratch.
 
 # To Do:
 - Data loading and batching into matrices (example with MNIST)
+- mini-batch sgd
 - Clean training loop
 - Other activations that are not element-wise (i.e softmax)
 - Other losses (i.e crossentropy)
