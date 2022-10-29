@@ -8,6 +8,7 @@ Implementing a small ML and DL library in pure java from scratch.
 - Simple SGD and Backpropagation algorithm
 - Sequential DNN models
 - Gaussian and Uniform weight initializer
+- Saving and loading sequential models
 
 # To Do:
 - Data loading and batching into matrices (example with MNIST)
