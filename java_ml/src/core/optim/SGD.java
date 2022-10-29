@@ -38,7 +38,7 @@ public class SGD {
         this.gradients = new ArrayList<Matrix>();
     }
 
-    public void forward_propagation(Matrix input) {
+    public void forwardPropagation(Matrix input) {
         outputs = new ArrayList<Matrix>();
         activations = new ArrayList<Matrix>();
 
@@ -58,8 +58,8 @@ public class SGD {
 
     }
 
-    public void backpropagation(Matrix input, Matrix y_true) {
-        forward_propagation(input);
+    public void backPropagation(Matrix input, Matrix y_true) {
+        forwardPropagation(input);
         Matrix y_pred = activations.get(activations.size() - 1);
         double lossValue = this.loss.f(y_true, y_pred);
         if (this.verbose) {
@@ -76,7 +76,7 @@ public class SGD {
     }
 
     public void step(Matrix input, Matrix y_true) {
-        backpropagation(input, y_true);
+        backPropagation(input, y_true);
         for (int i = 1; i < model.getLayers().size(); i++) {
             Layer layer = model.getLayers().get(i);
             Matrix grad = gradients.get(gradients.size() - i);
