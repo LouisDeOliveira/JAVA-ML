@@ -7,7 +7,7 @@ Implementing a small ML and DL library in pure java from scratch.
 - MSE loss
 - Simple SGD and Backpropagation algorithm
 - Sequential DNN models
-- Gaussian weight initializer
+- Gaussian and Uniform weight initializer
 
 # To Do:
 - Data loading and batching into matrices (example with MNIST)
