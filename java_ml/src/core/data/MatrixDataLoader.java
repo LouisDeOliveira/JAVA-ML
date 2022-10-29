@@ -47,6 +47,11 @@ public class MatrixDataLoader extends DataLoader {
 
     @Override
     public Matrix getData(int index) {
+        /*
+         * we return unraveled matrices because we do not have
+         * models able to handle matrices as input
+         */
+
         return data.get(index).unRaveled();
     }
 
