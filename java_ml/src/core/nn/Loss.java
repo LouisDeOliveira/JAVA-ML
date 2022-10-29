@@ -1,8 +1,9 @@
 package core.nn;
 
+import java.io.Serializable;
 import core.math.linalg.*;
 
-public abstract class Loss {
+public abstract class Loss implements Serializable {
 
     public static final Loss MSE = new Loss() {
         @Override

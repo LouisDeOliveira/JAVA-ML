@@ -1,11 +1,12 @@
 package core.nn.models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import core.math.linalg.Matrix;
 import core.nn.layers.Layer;
 
-public class Sequential extends Model {
+public class Sequential extends Model implements Serializable {
     private ArrayList<Layer> layers;
 
     public Sequential() {

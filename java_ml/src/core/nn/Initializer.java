@@ -1,8 +1,9 @@
 package core.nn;
 
+import java.io.Serializable;
 import java.util.Random;
 
-public abstract class Initializer {
+public abstract class Initializer implements Serializable {
     public static final Initializer NormalInitializer(double mean, double std) {
         return new Initializer() {
 

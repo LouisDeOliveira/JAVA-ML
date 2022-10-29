@@ -1,9 +1,11 @@
 package core.nn.layers;
 
+import java.io.Serializable;
+
 import core.math.linalg.Matrix;
 import core.nn.*;
 
-public class DenseLayer extends Layer {
+public class DenseLayer extends Layer implements Serializable {
     private Matrix weights;
     private Matrix biases;
     private Activation activation;

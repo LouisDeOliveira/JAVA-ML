@@ -1,9 +1,11 @@
 package core.nn;
 
+import java.io.Serializable;
+
 import core.math.Function;
 import core.math.linalg.Matrix;
 
-public abstract class Activation implements Function {
+public abstract class Activation implements Function, Serializable {
 
     public static final Activation Sigmoid = new Activation() {
         @Override
