@@ -9,11 +9,11 @@ Implementing a small ML and DL library in pure java from scratch.
 - Sequential DNN models
 - Gaussian and Uniform weight initializer
 - Saving and loading sequential models
+- Train and Test loop on MNIST, 2 models to load (0.754 and .... accuracy respectively)
 
 # To Do:
-- Data loading and batching into matrices (example with MNIST)
-- mini-batch sgd
-- Clean training loop
+- Batching
+- Batched SGD
 - Other activations that are not element-wise (i.e softmax)
 - Other losses (i.e crossentropy)
 - Refactor activations using Java functional interface
