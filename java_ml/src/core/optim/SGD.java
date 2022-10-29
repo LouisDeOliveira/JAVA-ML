@@ -61,7 +61,6 @@ public class SGD {
     public void backpropagation(Matrix input, Matrix y_true) {
         forward_propagation(input);
         Matrix y_pred = activations.get(activations.size() - 1);
-        System.out.println("model out: \n" + (model.forward(input)));
         double lossValue = this.loss.f(y_true, y_pred);
         if (this.verbose) {
             System.out.println("Loss: " + lossValue);
@@ -93,12 +92,13 @@ public class SGD {
 
     public static void main(String[] args) {
         Sequential model = new Sequential();
-        model.add(new DenseLayer(2, 4, Activation.ReLU));
-        model.add(new DenseLayer(4, 2, Activation.Sigmoid));
+        model.add(new DenseLayer(2, 6, Activation.ReLU));
+        model.add(new DenseLayer(6, 2, Activation.ReLU));
         Matrix input = new Matrix(new double[][] { { 1d }, { 1d } });
         SGD sgd = new SGD(model, 0.01, Loss.MSE, true);
         for (int i = 0; i < 10000; i++) {
-            sgd.step(input, new Matrix(new double[][] { { 0.999 }, { 0.999 } }));
+            sgd.step(input, new Matrix(new double[][] { { 3.14159265 }, { 0.19012000 } }));
         }
+        System.out.println(model.forward(input));
     }
 }
