@@ -15,4 +15,16 @@ public class OneHotEncoder {
         return encoded;
     }
 
+    public int decode(Matrix output) {
+        int classNumber = 0;
+        double max = 0.0;
+        for (int i = 0; i < NClasses; i++) {
+            if (output.getValue(i, 0) > max) {
+                max = output.getValue(i, 0);
+                classNumber = i;
+            }
+        }
+        return classNumber;
+    }
+
 }
