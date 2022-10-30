@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import core.math.linalg.Matrix;
 import core.nn.Activation;
+import core.nn.layers.ActivationLayer;
 import core.nn.layers.DenseLayer;
 import core.nn.layers.Layer;
 
@@ -86,7 +87,8 @@ public class Sequential extends Model implements Serializable {
 
     public static void main(String[] args) {
         Sequential model = new Sequential();
-        model.add(new DenseLayer(2, 3, Activation.Sigmoid));
+        model.add(new DenseLayer(2, 3));
+        model.add(new ActivationLayer(Activation.Sigmoid));
         System.out.println(model);
         model.saveModel("model.model");
         Sequential model2 = Sequential.loadModel("model.model");

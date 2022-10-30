@@ -16,7 +16,7 @@ public class Test {
         labelLoader.readData("./java_ml/data/t10k-labels.idx1-ubyte");
 
         OneHotEncoder encoder = new OneHotEncoder(10);
-        Sequential model = Sequential.loadModel("MNIST_128.model");
+        Sequential model = Sequential.loadModel("MNIST.model");
 
         int correct = 0;
 

@@ -1,6 +1,7 @@
 package core.nn.models;
 
 import core.nn.Activation;
+import core.nn.layers.ActivationLayer;
 import core.nn.layers.DenseLayer;
 
 public class SequentialModelFactory {
@@ -10,7 +11,8 @@ public class SequentialModelFactory {
         int inputSize = layerSizes[0];
         for (int i = 1; i < layerSizes.length; i++) {
             int outputSize = layerSizes[i];
-            model.add(new DenseLayer(inputSize, outputSize, activations[i - 1]));
+            model.add(new DenseLayer(inputSize, outputSize));
+            model.add(new ActivationLayer(activations[i - 1]));
             inputSize = outputSize;
         }
 
