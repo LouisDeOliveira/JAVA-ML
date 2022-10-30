@@ -7,6 +7,18 @@ import core.math.linalg.Matrix;
 
 public abstract class Activation implements Function, Serializable {
 
+    public static final Activation Linear = new Activation() {
+        @Override
+        public double f(double input) {
+            return input;
+        }
+
+        @Override
+        public double df(double input) {
+            return 1;
+        }
+    };
+
     public static final Activation Sigmoid = new Activation() {
         @Override
         public double f(double x) {
