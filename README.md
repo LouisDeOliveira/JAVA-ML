@@ -2,24 +2,25 @@
 Implementing a small ML and DL library in pure java from scratch.
 
 # Implemented now:
-- Matrix data structure
-- Element-wise activations
-- MSE loss
-- Simple SGD and Backpropagation algorithm
-- Sequential DNN models
-- Gaussian and Uniform weight initializer
-- Saving and loading sequential models
-- Train and Test loop on MNIST, 1 model to load (0.754 accuracy)
+- [x] Matrix data structure
+- [x] Element-wise activations, and Softmax
+- [x] MSE loss
+- [x] Simple SGD and Backpropagation algorithm
+- [x] Sequential DNN models
+- [x] Gaussian and Uniform weight initializer
+- [x] Saving and loading sequential models
+- [x] Train and Test loop on MNIST, 1 model to load (0.83 accuracy)
+- [x] Dropout Layer
 
 # To Do:
-- Batching
-- Batched SGD
-- Other activations that are not element-wise (i.e softmax)
-- Other losses (i.e crossentropy)
-- Learning rate scheduling
-- Refactor activations using Java functional interface
-- Train MNIST autoencoder
-- Implement other non-DL ML techniques: KNN, PCA, SVM's, etc..
+- [ ] Batching : BatchedSGD, BatchNorm Layer
+- [ ] Momentum SGD
+- [ ] Learning rate scheduling
+- [ ] Train MNIST autoencoder
+- [ ] Implement other non-DL ML techniques: 
+  - [ ] KNN
+  - [ ] PCA
+  - [ ] SVM
 
 # Resources
 Deep Learning, Ian Goodfellow and Yoshua Bengio and Aaron Courville, https://www.deeplearningbook.org/
