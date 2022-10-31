@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import core.math.linalg.Matrix;
 import core.nn.RealActivation;
 import core.nn.VectorActivation;
-import core.nn.Initializer;
 import core.nn.Loss;
 import core.nn.models.Model;
 import core.nn.models.Sequential;
@@ -18,6 +17,8 @@ public class SGD {
     private boolean verbose;
     private ArrayList<Matrix> outputs;
     private ArrayList<Matrix> gradients;
+    private int verboseFreq = 1000;
+    private int iteration = 0;
 
     public SGD(Model model, double learning_rate, Loss loss) {
         this.model = model;
@@ -54,7 +55,7 @@ public class SGD {
         forwardPropagation(input);
         Matrix y_pred = outputs.get(outputs.size() - 1);
         double lossValue = this.loss.f(y_true, y_pred);
-        if (this.verbose) {
+        if (this.verbose && this.iteration % this.verboseFreq == 0) {
             System.out.println("Loss: " + lossValue);
         }
         Matrix grad = loss.df(y_true, y_pred);
@@ -69,6 +70,7 @@ public class SGD {
     }
 
     public void step(Matrix input, Matrix y_true) {
+        iteration++;
         backPropagation(input, y_true);
         int current_layer = 1;
         for (int i = 0; i < model.getLayers().size() - 1; i++) {

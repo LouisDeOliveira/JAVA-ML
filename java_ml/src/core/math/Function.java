@@ -21,4 +21,16 @@ public interface Function<T> {
         }
     };
 
+    public static final Function<Double> Log = new Function<Double>() {
+        @Override
+        public Double f(Double input) {
+            return Math.log(input);
+        }
+
+        @Override
+        public Double df(Double input) {
+            return 1 / (input);
+        }
+    };
+
 }

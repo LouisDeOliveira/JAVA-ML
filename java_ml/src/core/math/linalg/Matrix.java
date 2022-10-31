@@ -440,4 +440,14 @@ public class Matrix implements Serializable {
         }
         return result;
     }
+
+    public Matrix clip(double min, double max) {
+        Matrix result = new Matrix(this.rows, this.cols);
+        for (int i = 0; i < this.rows; i++) {
+            for (int j = 0; j < this.cols; j++) {
+                result.data[i][j] = Math.min(Math.max(this.data[i][j], min), max);
+            }
+        }
+        return result;
+    }
 }

@@ -25,7 +25,7 @@ public class Train {
         model.add(new DenseLayer(128, 10));
         model.add(new ActivationLayer(VectorActivation.Softmax));
         model.Training();
-        SGD optimizer = new SGD(model, 0.01, Loss.MSE, false);
+        SGD optimizer = new SGD(model, 0.001, Loss.MSE, true);
         int n_epochs = 1;
         for (int i = 0; i < n_epochs; i++) {
             for (int j = 0; j < loader.length(); j++) {
