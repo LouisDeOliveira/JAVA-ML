@@ -34,13 +34,13 @@ public abstract class Loss implements Serializable {
         }
     };
 
+    @Deprecated
     public static final Loss BinaryCrossentropy = new Loss() {
         @Override
         public double f(Matrix y_true, Matrix y_pred) {
-            y_pred = y_pred.clip(1e-9, 1 - 1e-9);
             Matrix logy_hat = y_pred.map(Function.Log);
             // System.out.println("logy_hat: \n" + logy_hat);
-            Matrix one = Matrix.ones(y_pred.getSize()).scale(0.9999999);
+            Matrix one = Matrix.ones(y_pred.getSize());
             Matrix log1_minus_y_hat = one.substract(y_pred).map(Function.Log);
             // System.out.println("logy-yhat: \n" + log1_minus_y_hat);
             Matrix ylog_y_hat = y_true.elementWiseProduct(logy_hat);
