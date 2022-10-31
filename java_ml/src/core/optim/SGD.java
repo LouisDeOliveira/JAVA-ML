@@ -17,7 +17,7 @@ public class SGD {
     private boolean verbose;
     private ArrayList<Matrix> outputs;
     private ArrayList<Matrix> gradients;
-    private int verboseFreq = 1000;
+    private int verboseFreq = 250;
     private int iteration = 0;
 
     public SGD(Model model, double learning_rate, Loss loss) {
