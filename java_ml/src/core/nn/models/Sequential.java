@@ -108,4 +108,15 @@ public class Sequential extends Model implements Serializable {
             layer.setTraining(false);
         }
     }
+
+    @Override
+    public ArrayList<Layer> getTrainableLayers() {
+        ArrayList<Layer> trainableLayers = new ArrayList<>();
+        for (Layer layer : layers) {
+            if (layer.isTrainable()) {
+                trainableLayers.add(layer);
+            }
+        }
+        return trainableLayers;
+    }
 }

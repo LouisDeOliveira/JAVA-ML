@@ -61,26 +61,24 @@ public class SGD {
         for (int i = model.getLayers().size() - 1; i > 0; i--) {
             Layer layer = model.getLayers().get(i);
             grad = layer.backward(outputs.get(i), grad);
-            gradients.add(grad);
+            if (layer.isTrainable()) {
+                gradients.add(grad);
+            }
         }
     }
 
     public void step(Matrix input, Matrix y_true) {
         backPropagation(input, y_true);
-        // for (Matrix output : outputs) {
-        // System.out.println("out: " + output);
-        // }
-        // for (Matrix gradient : gradients) {
-        // System.out.println("grad :" + gradient);
-        // }
-        for (int i = 1; i < model.getLayers().size(); i++) {
+        int current_layer = 1;
+        for (int i = 0; i < model.getLayers().size() - 1; i++) {
             Layer layer = model.getLayers().get(i);
-            // System.out.println("Layer: " + i + layer);
-            Matrix grad = gradients.get(gradients.size() - i - 1);
-            Matrix output = outputs.get(i);
-            // System.out.println("grad: " + grad);
-            // System.out.println("out: " + output);
-            layer.applyGradient(output, grad.scale(learning_rate));
+            if (layer.isTrainable()) {
+                Matrix grad = gradients.get(gradients.size() - current_layer);
+                Matrix output = outputs.get(i);
+                layer.applyGradient(output, grad.scale(learning_rate));
+                current_layer++;
+            }
+
         }
     }
 
@@ -94,8 +92,8 @@ public class SGD {
         model.add(new ActivationLayer(Activation.Sigmoid));
         Matrix true_m = new Matrix(Initializer.UniformInitializer(0d, 1d).initialize(new int[] { 3, 1 }));
         Matrix input = new Matrix(new double[][] { { 1d }, { 1d } });
-        SGD sgd = new SGD(model, 0.1, Loss.MSE, true);
-        for (int i = 0; i < 10000; i++) {
+        SGD sgd = new SGD(model, 0.001, Loss.MSE, true);
+        for (int i = 0; i < 1000; i++) {
             sgd.step(input, true_m);
         }
         System.out.println(model.forward(input));
