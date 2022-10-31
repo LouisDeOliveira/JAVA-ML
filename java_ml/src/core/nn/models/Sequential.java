@@ -8,7 +8,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import core.math.linalg.Matrix;
-import core.nn.Activation;
+import core.nn.RealActivation;
+import core.nn.layers.ActivationLayer;
 import core.nn.layers.DenseLayer;
 import core.nn.layers.Layer;
 
@@ -86,10 +87,36 @@ public class Sequential extends Model implements Serializable {
 
     public static void main(String[] args) {
         Sequential model = new Sequential();
-        model.add(new DenseLayer(2, 3, Activation.Sigmoid));
+        model.add(new DenseLayer(2, 3));
+        model.add(new ActivationLayer(RealActivation.Sigmoid));
         System.out.println(model);
         model.saveModel("model.model");
         Sequential model2 = Sequential.loadModel("model.model");
         System.out.println(model2);
+    }
+
+    @Override
+    public void Training() {
+        for (Layer layer : layers) {
+            layer.setTraining(true);
+        }
+    }
+
+    @Override
+    public void Evaluation() {
+        for (Layer layer : layers) {
+            layer.setTraining(false);
+        }
+    }
+
+    @Override
+    public ArrayList<Layer> getTrainableLayers() {
+        ArrayList<Layer> trainableLayers = new ArrayList<>();
+        for (Layer layer : layers) {
+            if (layer.isTrainable()) {
+                trainableLayers.add(layer);
+            }
+        }
+        return trainableLayers;
     }
 }
