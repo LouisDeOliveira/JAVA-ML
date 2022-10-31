@@ -2,6 +2,8 @@ package core.math.linalg;
 
 import java.io.Serializable;
 
+import core.math.Function;
+
 /**
  * A class for representing a matrix of doubles. Can be used for
  * vector as well as matrix operations. Similar to Numpy's ndarray.
@@ -388,5 +390,54 @@ public class Matrix implements Serializable {
             }
         }
         return sum;
+    }
+
+    public double mean() {
+        return sum() / (rows * cols);
+    }
+
+    public double max() {
+        double max = Double.NEGATIVE_INFINITY;
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                if (data[i][j] > max) {
+                    max = data[i][j];
+                }
+            }
+        }
+        return max;
+    }
+
+    public double min() {
+        double min = Double.POSITIVE_INFINITY;
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                if (data[i][j] < min) {
+                    min = data[i][j];
+                }
+            }
+        }
+        return min;
+    }
+
+    public double norm(int dim) {
+        double sum = 0d;
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                sum += Math.pow(data[i][j], dim);
+            }
+        }
+
+        return Math.pow(sum, 1d / dim);
+    }
+
+    public Matrix map(Function<Double> f) {
+        Matrix result = new Matrix(this.rows, this.cols);
+        for (int i = 0; i < this.rows; i++) {
+            for (int j = 0; j < this.cols; j++) {
+                result.data[i][j] = f.f(this.data[i][j]);
+            }
+        }
+        return result;
     }
 }

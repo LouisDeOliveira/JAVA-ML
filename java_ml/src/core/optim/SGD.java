@@ -3,7 +3,7 @@ package core.optim;
 import java.util.ArrayList;
 
 import core.math.linalg.Matrix;
-import core.nn.Activation;
+import core.nn.RealActivation;
 import core.nn.Initializer;
 import core.nn.Loss;
 import core.nn.models.Model;
@@ -85,11 +85,11 @@ public class SGD {
     public static void main(String[] args) {
         Sequential model = new Sequential();
         model.add(new DenseLayer(2, 16));
-        model.add(new ActivationLayer(Activation.ReLU));
+        model.add(new ActivationLayer(RealActivation.ReLU));
         model.add(new DenseLayer(16, 6));
-        model.add(new ActivationLayer(Activation.ReLU));
+        model.add(new ActivationLayer(RealActivation.ReLU));
         model.add(new DenseLayer(6, 3));
-        model.add(new ActivationLayer(Activation.Sigmoid));
+        model.add(new ActivationLayer(RealActivation.Sigmoid));
         Matrix true_m = new Matrix(Initializer.UniformInitializer(0d, 1d).initialize(new int[] { 3, 1 }));
         Matrix input = new Matrix(new double[][] { { 1d }, { 1d } });
         SGD sgd = new SGD(model, 0.001, Loss.MSE, true);
