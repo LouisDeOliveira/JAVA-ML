@@ -60,43 +60,31 @@ public class SGD {
         gradients.add(grad);
         for (int i = model.getLayers().size() - 1; i > 0; i--) {
             Layer layer = model.getLayers().get(i);
-            grad = backward(i, layer, grad);
+            grad = layer.backward(outputs.get(i), grad);
             gradients.add(grad);
-        }
-    }
-
-    public Matrix backward(int depth, Layer layer, Matrix grad) {
-        if (layer instanceof ActivationLayer) {
-            return layer.backward(outputs.get(depth), grad);
-        } else if (layer instanceof DenseLayer) {
-            return layer.backward(outputs.get(depth), grad);
-        } else {
-            return layer.backward(outputs.get(depth), grad);
         }
     }
 
     public void step(Matrix input, Matrix y_true) {
         backPropagation(input, y_true);
-        for (int i = 0; i < model.getLayers().size(); i++) {
+        for (int i = 1; i < model.getLayers().size(); i++) {
             Layer layer = model.getLayers().get(i);
             // System.out.println("Layer: " + i + layer);
             Matrix grad = gradients.get(gradients.size() - i - 1);
-            Matrix output = outputs.get(i);
+            Matrix output = outputs.get(i - 1);
             layer.applyGradient(output, grad.scale(learning_rate));
         }
     }
 
     public static void main(String[] args) {
         Sequential model = new Sequential();
-        model.add(new DenseLayer(2, 32));
+        model.add(new DenseLayer(2, 16));
+        model.add(new ActivationLayer(Activation.Linear));
+        model.add(new DenseLayer(16, 4));
         model.add(new ActivationLayer(Activation.Sigmoid));
-        model.add(new DenseLayer(32, 128));
-        model.add(new ActivationLayer(Activation.LeakyReLU));
-        model.add(new DenseLayer(128, 32));
-        model.add(new ActivationLayer(Activation.Sigmoid));
-        Matrix true_m = new Matrix(Initializer.UniformInitializer(0d, 1d).initialize(new int[] { 32, 1 }));
+        Matrix true_m = new Matrix(Initializer.UniformInitializer(0d, 1d).initialize(new int[] { 4, 1 }));
         Matrix input = new Matrix(new double[][] { { 1d }, { 1d } });
-        SGD sgd = new SGD(model, 0.001, Loss.MSE, true);
+        SGD sgd = new SGD(model, 0.1, Loss.MSE, true);
         for (int i = 0; i < 10000; i++) {
             sgd.step(input, true_m);
         }
