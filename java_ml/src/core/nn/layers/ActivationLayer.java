@@ -3,13 +3,13 @@ package core.nn.layers;
 import java.io.Serializable;
 
 import core.math.linalg.Matrix;
-import core.nn.RealActivation;
+import core.nn.Activation;
 
 public class ActivationLayer extends Layer implements Serializable {
-    private RealActivation activation;
+    private Activation activation;
     private boolean training;
 
-    public ActivationLayer(RealActivation activation) {
+    public ActivationLayer(Activation activation) {
         this.activation = activation;
         this.training = true;
     }

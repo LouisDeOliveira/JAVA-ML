@@ -3,6 +3,7 @@ package core;
 import core.data.LabelDataLoader;
 import core.data.MatrixDataLoader;
 import core.nn.RealActivation;
+import core.nn.VectorActivation;
 import core.nn.Loss;
 import core.nn.models.Sequential;
 import core.optim.SGD;
@@ -22,7 +23,7 @@ public class Train {
         model.add(new DropoutLayer(0.1f));
         model.add(new ActivationLayer(RealActivation.ReLU));
         model.add(new DenseLayer(128, 10));
-        model.add(new ActivationLayer(RealActivation.Sigmoid));
+        model.add(new ActivationLayer(VectorActivation.Softmax));
         model.Training();
         SGD optimizer = new SGD(model, 0.01, Loss.MSE, false);
         int n_epochs = 1;
@@ -35,7 +36,7 @@ public class Train {
             }
         }
 
-        model.saveModel("MNIST.model");
+        model.saveModel("MNIST_128_dropout_softmax.model");
 
     }
 }

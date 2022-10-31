@@ -21,26 +21,14 @@ public abstract class VectorActivation implements Activation, Function<Matrix>, 
         }
 
         public Matrix df(Matrix input) {
+            Matrix res = new Matrix(input.getRows(), input.getCols());
+            Matrix expInput = input.map(Function.Exp);
+            double sum = expInput.sum();
 
-            return getJacobian(input).dot(input);
-        }
-
-        private double J(int i, int j, Matrix S) {
-            if (i == j) {
-                return S.getValue(i, 0) * (1 - S.getValue(j, 0));
-            } else {
-                return -S.getValue(i, 0) * S.getValue(j, 0);
-            }
-        }
-
-        private Matrix getJacobian(Matrix input) {
-            Matrix S = f(input);
-            Matrix res = new Matrix(input.getRows(), input.getRows());
             for (int i = 0; i < input.getRows(); i++) {
-                for (int j = 0; j < input.getCols(); j++) {
-                    res.setValue(i, j, J(i, j, S));
-                }
+                res.setValue(i, 0, expInput.getValue(i, 0) * (sum - expInput.getValue(i, 0)) / Math.pow(sum, 2));
             }
+
             return res;
         }
     };
