@@ -2,7 +2,7 @@ package core;
 
 import core.data.LabelDataLoader;
 import core.data.MatrixDataLoader;
-import core.nn.Activation;
+import core.nn.RealActivation;
 import core.nn.Loss;
 import core.nn.models.Sequential;
 import core.optim.SGD;
@@ -20,9 +20,9 @@ public class Train {
         Sequential model = new Sequential();
         model.add(new DenseLayer(784, 128));
         model.add(new DropoutLayer(0.1f));
-        model.add(new ActivationLayer(Activation.ReLU));
+        model.add(new ActivationLayer(RealActivation.ReLU));
         model.add(new DenseLayer(128, 10));
-        model.add(new ActivationLayer(Activation.Sigmoid));
+        model.add(new ActivationLayer(RealActivation.Sigmoid));
         model.Training();
         SGD optimizer = new SGD(model, 0.01, Loss.MSE, false);
         int n_epochs = 1;
