@@ -15,4 +15,8 @@ public abstract class Layer {
 
     public abstract boolean isTrainable();
 
+    public abstract boolean isTraining();
+
+    public abstract void setTraining(boolean training);
+
 }

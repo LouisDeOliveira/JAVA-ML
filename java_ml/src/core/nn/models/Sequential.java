@@ -94,4 +94,18 @@ public class Sequential extends Model implements Serializable {
         Sequential model2 = Sequential.loadModel("model.model");
         System.out.println(model2);
     }
+
+    @Override
+    public void Training() {
+        for (Layer layer : layers) {
+            layer.setTraining(true);
+        }
+    }
+
+    @Override
+    public void Evaluation() {
+        for (Layer layer : layers) {
+            layer.setTraining(false);
+        }
+    }
 }

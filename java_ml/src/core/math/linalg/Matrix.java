@@ -379,4 +379,14 @@ public class Matrix implements Serializable {
             throw new IllegalArgumentException("Matrix is not a unit matrix");
         }
     }
+
+    public double sum() {
+        double sum = 0d;
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                sum += data[i][j];
+            }
+        }
+        return sum;
+    }
 }

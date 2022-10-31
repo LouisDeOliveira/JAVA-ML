@@ -17,6 +17,7 @@ public class Test {
 
         OneHotEncoder encoder = new OneHotEncoder(10);
         Sequential model = Sequential.loadModel("MNIST.model");
+        model.Evaluation();
 
         int correct = 0;
 

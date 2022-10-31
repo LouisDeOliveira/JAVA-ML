@@ -11,6 +11,7 @@ public class DenseLayer extends Layer implements Serializable {
     private int inputSize;
     private int outputSize;
     private boolean trainable;
+    private boolean training;
 
     public DenseLayer(int inputSize, int outputSize) {
         ;
@@ -85,6 +86,16 @@ public class DenseLayer extends Layer implements Serializable {
 
     public void setTrainable(boolean trainable) {
         this.trainable = trainable;
+    }
+
+    @Override
+    public boolean isTraining() {
+        return training;
+    }
+
+    @Override
+    public void setTraining(boolean training) {
+        this.training = training;
     }
 
 }

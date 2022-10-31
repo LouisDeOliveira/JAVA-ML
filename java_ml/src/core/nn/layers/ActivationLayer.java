@@ -7,9 +7,11 @@ import core.nn.Activation;
 
 public class ActivationLayer extends Layer implements Serializable {
     private Activation activation;
+    private boolean training;
 
     public ActivationLayer(Activation activation) {
         this.activation = activation;
+        this.training = true;
     }
 
     public Matrix forward(Matrix input) {
@@ -32,6 +34,17 @@ public class ActivationLayer extends Layer implements Serializable {
     @Override
     public boolean isTrainable() {
         return false;
+    }
+
+    @Override
+    public boolean isTraining() {
+        return training;
+    }
+
+    @Override
+    public void setTraining(boolean training) {
+        this.training = training;
+
     }
 
 }

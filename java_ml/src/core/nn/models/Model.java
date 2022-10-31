@@ -10,4 +10,8 @@ public abstract class Model {
 
     public abstract ArrayList<Layer> getLayers();
 
+    public abstract void Training();
+
+    public abstract void Evaluation();
+
 }
