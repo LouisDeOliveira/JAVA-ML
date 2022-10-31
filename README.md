@@ -17,6 +17,7 @@ Implementing a small ML and DL library in pure java from scratch.
 - [ ] Momentum SGD
 - [ ] Learning rate scheduling
 - [ ] Train MNIST autoencoder
+- [ ] Autoencoder visualization UI
 - [ ] Implement other non-DL ML techniques: 
   - [ ] KNN
   - [ ] PCA
