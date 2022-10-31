@@ -26,7 +26,7 @@ public class Train {
         model.add(new ActivationLayer(VectorActivation.Softmax));
         model.Training();
         SGD optimizer = new SGD(model, 0.001, Loss.MSE, true);
-        int n_epochs = 1;
+        int n_epochs = 3;
         for (int i = 0; i < n_epochs; i++) {
             for (int j = 0; j < loader.length(); j++) {
                 optimizer.step(loader.getData(j), labelLoader.getData(j));
